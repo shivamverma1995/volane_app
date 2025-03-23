@@ -23,16 +23,6 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Volane Gas"),
           actions: [
-            BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
-                return IconButton(
-                  icon: const Icon(Icons.refresh),
-                  onPressed: () {
-                    context.read<HomeBloc>().add(const HomeEvent.refresh());
-                  },
-                );
-              },
-            ),
             BlocBuilder<CartBloc, CartState>(
               builder: (context, state) {
                 final cartItemCount = context.watch<CartBloc>().totalItemCount;
@@ -222,7 +212,7 @@ class HomePage extends StatelessWidget {
                                     ),
                                   ] else
                                     InkWell(
-                                      child: Icon(Icons.add_shopping_cart),
+                                      child: const Icon(Icons.add_shopping_cart),
                                       onTap: () {
                                         context.read<CartBloc>().add(
                                               CartEvent.addToCart(cylinder),

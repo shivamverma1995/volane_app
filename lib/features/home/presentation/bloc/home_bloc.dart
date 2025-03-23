@@ -11,7 +11,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeEvent>((event, emit) {
       event.map(
         started: (_) => _onStarted(emit),
-        refresh: (_) => _onRefresh(emit),
       );
     });
   }
@@ -39,39 +38,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           id: '3',
           size: '13kg',
           price: 1000,
-          imageUrl: 'assets/images/13kg.png',
-          description: 'Best value for large families',
-        ),
-      ];
-      emit(HomeState.loaded(cylinders: cylinders));
-    } catch (e) {
-      emit(HomeState.error(e.toString()));
-    }
-  }
-
-  Future<void> _onRefresh(Emitter<HomeState> emit) async {
-    try {
-      emit(const HomeState.loading());
-      // In a real app, this would fetch fresh data from an API
-      final cylinders = [
-        const GasCylinder(
-          id: '1',
-          size: '3kg',
-          price: 25.99,
-          imageUrl: 'assets/images/3kg.png',
-          description: 'Perfect for small households',
-        ),
-        const GasCylinder(
-          id: '2',
-          size: '6kg',
-          price: 45.99,
-          imageUrl: 'assets/images/6kg.png',
-          description: 'Ideal for medium-sized families',
-        ),
-        const GasCylinder(
-          id: '3',
-          size: '13kg',
-          price: 89.99,
           imageUrl: 'assets/images/13kg.png',
           description: 'Best value for large families',
         ),

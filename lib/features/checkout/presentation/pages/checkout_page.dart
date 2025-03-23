@@ -119,6 +119,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your phone number';
                         }
+                        // Check for valid phone number format (10 digits)
+                        final phoneRegExp = RegExp(r'^\d{10}$');
+                        if (!phoneRegExp.hasMatch(value)) {
+                          return 'Please enter a valid 10-digit phone number';
+                        }
                         return null;
                       },
                     ),
@@ -188,7 +193,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surfaceVariant,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Column(
@@ -214,8 +221,18 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text('Delivery Fee:'),
-                              const Text('Rs 100.00'),
+                              const Text('Items Total:'),
+                              Text(
+                                'Rs ${context.watch<CartBloc>().totalAmount.toStringAsFixed(2)}',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Delivery Fee:'),
+                              Text('Rs 100.00'),
                             ],
                           ),
                           const SizedBox(height: 8),
